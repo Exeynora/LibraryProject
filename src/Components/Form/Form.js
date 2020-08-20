@@ -13,7 +13,7 @@ const book = (props) => {
         <br />
         <label for="pages">Enter pages:</label>
         <input type="text" name="pages" id="pages" />
-        <input type="submit" onclick="addBookToLibrary(event);" />
+        <input type="submit" onClick={props.submitted} />
       </form>
     </div>
   );

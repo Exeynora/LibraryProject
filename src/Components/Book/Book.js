@@ -7,6 +7,7 @@ const book = (props) => {
         {props.bookTitle}
         <br />
         {props.bookAuthor}
+        <br />
         {props.bookPages}
       </div>
     </div>
