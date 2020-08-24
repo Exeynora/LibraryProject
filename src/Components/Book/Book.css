@@ -4,6 +4,8 @@
     transition: 0.3s;
     max-width: 300px;
     display: inline-flexbox;
+    text-align: center;
+    margin: auto;
 }
 
 /* On mouse-over, add a deeper shadow */

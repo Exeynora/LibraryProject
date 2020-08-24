@@ -1,22 +1,20 @@
 import React from "react";
 
-const book = (props) => {
+const form = (props) => {
   return (
-    <div className="card">
-      <form id="mainForm">
-        <label for="title">Enter title:</label>
-        <input type="text" name="title" id="title" />
-        <br />
-        <label for="author">Enter author:</label>
-
-        <input type="text" name="author" id="author" />
-        <br />
-        <label for="pages">Enter pages:</label>
-        <input type="text" name="pages" id="pages" />
-        <input type="submit" onClick={props.submitted} />
-      </form>
-    </div>
+    <form>
+      <label htmlFor="title">Enter title:</label>
+      <input required type="text" name="title" id="title" />
+      <br />
+      <label htmlFor="author">Enter author:</label>
+      <input required type="text" name="author" id="author" />
+      <br />
+      <label htmlFor="pages">Enter pages:</label>
+      <input required type="text" name="pages" id="pages" />
+      <br />
+      <input type="button" onClick={props.onAddBook} value="Submit" />
+    </form>
   );
 };
 
-export default book;
+export default form;
