@@ -1,4 +1,5 @@
 import React from "react";
+import "./Form.css";
 
 const form = (props) => {
   return (
@@ -11,6 +12,17 @@ const form = (props) => {
       <br />
       <label htmlFor="pages">Enter pages:</label>
       <input required type="text" name="pages" id="pages" />
+      <br />
+      <label>
+        Has Read:
+        <input
+          id="hasRead"
+          name="hasRead"
+          type="checkbox"
+          onChange={props.hasReadToggler}
+          defaultValue="off"
+        />
+      </label>
       <br />
       <input type="button" onClick={props.onAddBook} value="Submit" />
     </form>
