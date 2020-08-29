@@ -19,7 +19,7 @@ class Form extends Component {
 
   render() {
     return (
-      <form>
+      <form onSubmit={this.props.onAddBook}>
         <label htmlFor="title">Enter title:</label>
         <input required type="text" name="title" id="title" />
         <br />
@@ -27,7 +27,7 @@ class Form extends Component {
         <input required type="text" name="author" id="author" />
         <br />
         <label htmlFor="pages">Enter pages:</label>
-        <input required type="text" name="pages" id="pages" />
+        <input required type="number" name="pages" id="pages" />
         <br />
         <label>
           Has Read:
@@ -40,7 +40,7 @@ class Form extends Component {
           />
         </label>
         <br />
-        <input type="button" onClick={this.props.onAddBook} value="Submit" />
+        <input type="submit" value="Submit" />
       </form>
     );
   }

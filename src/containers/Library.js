@@ -14,7 +14,8 @@ class Library extends Component {
     this.fetchBooks();
   }
 
-  onAddBook = () => {
+  onAddBook = (e) => {
+    e.preventDefault();
     let title = document.getElementById("title");
     let author = document.getElementById("author");
     let pages = document.getElementById("pages");
@@ -30,6 +31,9 @@ class Library extends Component {
       .post("https://library-d6386.firebaseio.com/books.json", book)
       .then(() => {
         this.fetchBooks();
+        title.value = "";
+        author.value = "";
+        pages.value = "";
       });
   };
 
@@ -91,9 +95,11 @@ class Library extends Component {
   };
 
   render() {
-    let form = this.state.showForm ? <Form onAddBook={this.onAddBook} /> : null;
+    let form = this.state.showForm ? (
+      <Form onAddBook={(e) => this.onAddBook(e)} />
+    ) : null;
     return (
-      <div className="main">
+      <div>
         <div className="formDiv">
           <input
             className="btn btn-primary"
