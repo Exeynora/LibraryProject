@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Form from "../Components/Form/Form";
 import Book from "../Components/Book/Book";
 import axios from "axios";
-//import "./Library.css";
+import "./Library.css";
 
 class Library extends Component {
   state = {
@@ -37,6 +37,7 @@ class Library extends Component {
     this.setState({ showForm: !this.state.showForm });
   };
 
+  //Gets the books from the Firestone DB. Called when creating/deleting a book and once on initial page load
   fetchBooks = () => {
     console.log("FETCHING");
     axios
@@ -68,43 +69,53 @@ class Library extends Component {
       });
   };
 
-  hasReadToggler = (bookId) => {
+  //Toggles the HasRead property.
+  readBookToggler = (bookId) => {
     axios
-      .patch("https://library-d6386.firebaseio.com/books/" + bookId + ".json", {
-        //hasRead: this.state.books.hasRead === "on" ? "off" : "on",
-        hasRead: "on",
-      })
-      .then(() => {
-        this.fetchBooks();
+      .get("https://library-d6386.firebaseio.com/books/" + bookId + ".json")
+      .then((res) => {
+        axios
+          .patch(
+            "https://library-d6386.firebaseio.com/books/" + bookId + ".json",
+            {
+              //Issue with React form sending hasRead as a string the first time.
+              //hasRead: !res.data.hasRead,
+              hasRead: res.data.hasRead === "unread" ? "read" : "unread",
+            }
+          )
+          .then(() => {
+            this.fetchBooks();
+          });
       });
-
     console.log("TOGGLED");
-    console.log(this.state.books.hasRead);
   };
 
   render() {
     let form = this.state.showForm ? <Form onAddBook={this.onAddBook} /> : null;
     return (
       <div className="main">
-        <input
-          style={{ marginLeft: "50%" }}
-          type="button"
-          value="Toggle Form"
-          onClick={this.toggleFormHandler}
-        />
-        {form}
-
-        {this.state.books.map((book) => (
-          <Book
-            key={book.id}
-            bookTitle={book.title}
-            bookAuthor={book.author}
-            bookPages={book.pages}
-            hasRead={book.hasRead}
-            deleteBook={() => this.deleteBook(book.id)}
-            readBookToggler={() => this.hasReadToggler(book.id)}
+        <div className="formDiv">
+          <input
+            className="btn btn-primary"
+            type="button"
+            value="Toggle Form"
+            onClick={this.toggleFormHandler}
           />
-        ))}
+          {form}
+        </div>
+        <div style={{ margin: "20px 2% 20px 2%" }}>
+          {this.state.books.map((book) => (
+            <Book
+              key={book.id}
+              bookTitle={book.title}
+              bookAuthor={book.author}
+              bookPages={book.pages}
+              hasRead={book.hasRead}
+              deleteBook={() => this.deleteBook(book.id)}
+              readBookToggler={() => this.readBookToggler(book.id)}
+            />
+          ))}
+        </div>
       </div>
     );
   }

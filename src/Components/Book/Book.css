@@ -1,9 +1,13 @@
-/* Add some padding inside the card container */
-.container {
-    padding: 2px 16px;
-    text-align: center;
+.btn {
+    margin-left: 5px;
 }
 
-form {
-    margin-top: 50px;
+/* Не изглежда особено добре, ще ми се всичко да е центрирано като хората, ама.. Размерите също могат да се поиграят, ако примерно всички карти са еднакви ще е супер*/
+.card {
+    max-width: 20%;
+    min-width: 20%;
+    min-height: 150px;
+    float: left;
+    text-align: center;
+    display: inline-flexbox
 }
